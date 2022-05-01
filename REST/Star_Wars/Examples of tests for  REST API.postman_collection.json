@@ -1,0 +1,465 @@
+{
+	"info": {
+		"_postman_id": "66d41bdc-cbc4-427d-b561-e5004b2ef230",
+		"name": "Examples of tests for  REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All available resources",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"The response contains people\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"people\");",
+							"});",
+							"",
+							"pm.test(\"the response contains planets\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"planets\");",
+							"});",
+							"",
+							"pm.test(\"the response contains films\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"films\");",
+							"});",
+							"",
+							"pm.test(\"The response contains species\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"species\");",
+							"});",
+							"",
+							"pm.test(\"The response contains vehicles\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"vehicles\");",
+							"});",
+							"",
+							"pm.test(\"The response contains starships\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"starships\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All available characters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							"pm.test(\"Number of available characters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.count).to.eql(82);",
+							"});",
+							"",
+							"pm.test(\"Checking that the third item in the list is R2-D2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[2].name).to.eql(\"R2-D2\");",
+							"});",
+							"",
+							"pm.test(\"Writing a collection variable\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"count\",jsonData.count);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/people/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting the last resource in the list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/people/{{count}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"{{count}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checking Darth Vader fields (name)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							"pm.test(\"Value of the name field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"Darth Vader\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/people/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checking Darth Vader fields (birth_year)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							"pm.test(\"Value of the birth_year field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.birth_year).to.eql(\"41.9BBY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/people/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checking Darth Vader fields (eye_color)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							"pm.test(\"Value of the eye_color field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.eye_color).to.eql(\"yellow\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/people/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checking Darth Vader fields (skin_color)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							"pm.test(\"Value of the skin_color field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.skin_color).to.eql(\"white\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/people/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checking Darth Vader fields (hair_color)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							"pm.test(\"Value of the hair_color field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.hair_color).to.eql(\"none\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/people/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checking Darth Vader fields (mass)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							"pm.test(\"Value of the mass field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.mass).to.eql(\"136\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/people/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checking Darth Vader fields (height)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"",
+							"pm.test(\"Value of the height field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.height).to.eql(\"202\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/people/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://swapi.dev/api/",
+			"type": "string"
+		},
+		{
+			"key": "count",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
