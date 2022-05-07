@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "29d4123d-650b-4a0b-b21e-f4ed5716b74c",
+		"name": "Weathe API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Прогноз по координатам",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Значение долготы\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.coord.lon).to.eql(139);",
+							"});",
+							"pm.test(\"Значение широты\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.coord.lat).to.eql(35);",
+							"});",
+							"pm.test(\"Значение страны\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.sys.country).to.eql('JP');",
+							"});",
+							"pm.test(\"Значение города\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"Shuzenji\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid={{API key}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "35"
+						},
+						{
+							"key": "lon",
+							"value": "139"
+						},
+						{
+							"key": "appid",
+							"value": "{{API key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Прошноз по имени города",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Значение города\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"Саратов\");",
+							"});",
+							"",
+							"pm.test(\"Значение страны\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.sys.country).to.eql('RU');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?q={{city name}}&appid={{API key}}&lang=ru&units=metric",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{city name}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{API key}}"
+						},
+						{
+							"key": "lang",
+							"value": "ru"
+						},
+						{
+							"key": "units",
+							"value": "metric"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Подробный прогноз на 5 дней",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var today = new Date;",
+							"",
+							"pm.test(\"Датв первого ответа\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.list[0].dt_txt).includes(today.getFullYear() + '-' + 0 + parseInt(today.getMonth() + 1) + '-' + 0 +  today.getDate());",
+							"});",
+							"",
+							"pm.test(\"Значение города\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.city.name).to.eql(\"Саратов\");",
+							"});",
+							"",
+							"pm.test(\"Значение страны\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.city.country).to.eql(\"RU\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/forecast?lat=51.5667&lon=46.0333&appid={{API key}}&units=metric&lang=ru",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"forecast"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "51.5667"
+						},
+						{
+							"key": "lon",
+							"value": "46.0333"
+						},
+						{
+							"key": "appid",
+							"value": "{{API key}}"
+						},
+						{
+							"key": "units",
+							"value": "metric"
+						},
+						{
+							"key": "lang",
+							"value": "ru"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Невалидный API key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Текст содержит текст Invalid API keyэ\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Invalid API key.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=123",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "35"
+						},
+						{
+							"key": "lon",
+							"value": "139"
+						},
+						{
+							"key": "appid",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "Key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "ef5a380b6944e0e381e58e35cfb81e10",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API key",
+			"value": "ef5a380b6944e0e381e58e35cfb81e10",
+			"type": "string"
+		},
+		{
+			"key": "city name",
+			"value": "саратов",
+			"type": "string"
+		},
+		{
+			"key": "API key Hourly",
+			"value": "4198d9b1b0324507bfdee0f311658ec1",
+			"type": "string"
+		}
+	]
+}
