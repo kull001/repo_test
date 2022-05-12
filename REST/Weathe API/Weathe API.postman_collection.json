@@ -151,7 +151,7 @@
 							"",
 							"pm.test(\"Датв первого ответа\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.list[0].dt_txt).includes(today.getFullYear() + '-' + 0 + parseInt(today.getMonth() + 1) + '-' + 0 +  today.getDate());",
+							"    pm.expect(jsonData.list[0].dt_txt).includes(today.getFullYear() + '-' + 0 + parseInt(today.getMonth() + 1) + '-'  +  today.getDate());",
 							"});",
 							"",
 							"pm.test(\"Значение города\", function () {",
