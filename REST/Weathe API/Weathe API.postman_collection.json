@@ -72,6 +72,113 @@
 			"response": []
 		},
 		{
+			"name": "Доступные методы",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"let header = pm.response.headers.get('Access-Control-Allow-Methods');",
+							"",
+							"pm.test(\"Доступны методы GET и POST\", function () {",
+							"    let par = \"GET, POST\"",
+							"    pm.expect(par).to.eql(header)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid={{API key}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "35"
+						},
+						{
+							"key": "lon",
+							"value": "139"
+						},
+						{
+							"key": "appid",
+							"value": "{{API key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ошибка в url",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/dat/2.5/weather?lat=35&lon=139&appid={{API key}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"dat",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "35"
+						},
+						{
+							"key": "lon",
+							"value": "139"
+						},
+						{
+							"key": "appid",
+							"value": "{{API key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Прошноз по имени города",
 			"event": [
 				{
